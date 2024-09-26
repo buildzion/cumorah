@@ -1,0 +1,30 @@
+{% load cumorah_tags cumorah_menu %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-fixed-top justify-content-between">
+    <div class="container">
+        <a class="navbar-brand" href="/">Cumorah</a>
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar" aria-label="Toggle Navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+                {% cumorah_menu as menu_list %}
+                {% for menu_item in menu_list %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ menu_item.page.url }}">{{ menu_item }}</a>
+                    </li>
+                {% endfor %}
+                {% collection_pages as collection_pages %}
+                {% if collection_pages %}
+                    <li class="nav-item dropdown">
+                        <a href="#" id="collectionsDropdown" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">Collections <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            {% for cpage in collection_pages %}
+                                <li><a class="dropdown-item" href="{{ cpage.url }}">{{ cpage.title }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

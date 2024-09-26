@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+    <h1>{{ page.title }}</h1>
+    <div class="body-stream">
+    {% include_block page.description %}
+    </div>
+    {% if child_collections %}
+    <div class="sub-collections">
+        <h3>Collections</h3>
+        <ul>
+            {% for coll in child_collections %}
+                <li><a href="{{ coll.url }}">{{ coll.title }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    {% if child_documents.exists %}
+    <div class="documents">
+        <h3>Documents</h3>
+        <ul>
+            {% for doc in child_documents %}
+                <li><a href="{{ doc.url }}">{{ doc.title }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+{% endblock %}
