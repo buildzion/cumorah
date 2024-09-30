@@ -20,7 +20,7 @@ def collection_pages(context):
     except Site.DoesNotExist:
         log.warning("Can't get current site for collection page links, check sites config.")
         site = Site.objects.all().filter(default=True).first()
-        # return []
+
     collection = ContentType.objects.get_for_model(CollectionPage)
     qs = site.root_page.get_children().live().filter(content_type=collection, show_in_menus=True)
     return list(qs)

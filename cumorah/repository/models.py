@@ -40,6 +40,11 @@ class CumorahDocument(AbstractDocument):
         'content_type',
     )
 
+    @property
+    def text_doc_type(self):
+        choices = dict(DOC_CHOICES)
+        return choices.get(self.content_type, 'unknown')
+
 
 class CollectionPage(Page):
     parent_page_types = ['CollectionPage', 'home.HomePage']
