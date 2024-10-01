@@ -3,10 +3,10 @@
     <div class="container">
         <a class="navbar-brand" href="/">Cumorah</a>
         <button class="navbar-toggler" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar" aria-label="Toggle Navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-        <div id="navbar" class="collapse navbar-collapse">
-            <ul class="navbar-nav mr-auto">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div id="navbar" class="collapse navbar-collapse justify-content-between">
+            <ul class="navbar-nav">
                 {% cumorah_menu as menu_list %}
                 {% for menu_item in menu_list %}
                     <li class="nav-item">
@@ -24,6 +24,22 @@
                         </ul>
                     </li>
                 {% endif %}
+            </ul>
+            <ul class="navbar-nav d-flex">
+                <li class="nav-item dropdown">
+                    <a href="#" id="accountDropdown" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">Account <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        {% if not request.user.is_authenticated %}
+                            <li><a class="dropdown-item" href="{% url "account_login" %}">Login</a></li>
+                        {% else %}
+                            {% if request.user.is_superuser %}
+                                <li><a class="dropdown-item" href="{% url "wagtailadmin_home" %}">CMS</a></li>
+                            {% endif %}
+                            <li><a class="dropdown-item" href="{% url "account_email" %}">Account Settings</a></li>
+                            <li><a class="dropdown-item" href="{% url "account_logout" %}">Logout</a></li>
+                        {% endif %}
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>

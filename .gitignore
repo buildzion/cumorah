@@ -105,5 +105,5 @@ ENV/
 secrets.json
 
 node_modules/
-cumorah/static/bundle/main.js
-cumorah/static/bundle/main.css
+cumorah/static/bundle/main.*
+cumorah/static/bundle/htmx*.js

@@ -33,21 +33,33 @@
 
     <body class="{% block body_class %}{% endblock %}">
 {#        This JS is at the top of the page because of HTMX order of declaration problems #}
-        <script src="{% static 'bundle/main.js' %}" crossorigin="anonymous"></script>
+        <script src="{% static 'bundle/htmx.min.js' %}" crossorigin="anonymous"></script>
 
         {% wagtailuserbar %}
 
         {% include 'cumorah/nav_header.html' %}
 
         <div class="container">
+        {% block notifications %}
+            {% for message in messages %}
+                <div class="alert alert-info">
+                    {{ message|linebreaksbr }}
+                </div>
+            {% endfor %}
+        {% endblock %}
+        
+        {% block outer_content %}
             {% block content %}{% endblock %}
+        {% endblock %}
         </div>
 
         {# Global javascript #}
-{# FIXME: Move main.js here once HTMX is separated in the JS build process #}
+        <script src="{% static 'bundle/main.js' %}" crossorigin="anonymous"></script>
 
         {% block extra_js %}
         {# Override this in templates to add extra javascript #}
+        {% endblock %}
+        {% block extra_body %}
         {% endblock %}
     </body>
 </html>

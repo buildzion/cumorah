@@ -1,3 +1,11 @@
+FROM node:20.16.0 as nodebuild
+
+WORKDIR /build
+
+COPY . .
+
+RUN npm install && npm run build
+
 # Use an official Python runtime based on Debian 10 "buster" as a parent image.
 FROM python:3.8.1-slim-buster
 
@@ -41,6 +49,8 @@ RUN chown wagtail:wagtail /app
 
 # Copy the source code of the project into the container.
 COPY --chown=wagtail:wagtail . .
+
+COPY --from=nodebuild --chown=wagtail:wagtail /build/cumorah/static/bundle/* cumorah/static/bundle/
 
 # Use user "wagtail" to run the build commands below and the server itself.
 USER wagtail

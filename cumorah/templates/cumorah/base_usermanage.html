@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block outer_content %}
+<div class="row">
+    <div class="col-sm-3">
+        <ul>
+            <li><a href="{% url 'account_email' %}">Email</a></li>
+            <li><a href="{% url 'account_change_password' %}">Change Password</a></li>
+        </ul>
+    </div>
+    <div class="col-sm-9">
+        {% block content %}{% endblock %}
+    </div>
+</div>
+{% endblock %}

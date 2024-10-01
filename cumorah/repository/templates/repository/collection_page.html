@@ -28,6 +28,14 @@
                         <li><a href="{{ doc.url }}">{{ doc.title }}</a></li>
                     {% endfor %}
                 </ul>
+                {% if page.documents_collection %}
+                    <h3>{{ page.documents_collection }}</h3>
+                    <ul>
+                        {% for doc in selected_collection_list %}
+                            <li><a href="{{ doc.url }}">{{ doc.title }} ({{ doc.text_doc_type }})</a></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
             </div>
             {% endif %}
         </div>

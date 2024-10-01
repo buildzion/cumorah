@@ -2,7 +2,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from wagtail.admin.panels import FieldPanel
 from wagtail.documents.models import AbstractDocument
-from wagtail.models import Page
+from wagtail.models import Page, Collection
 from wagtail import fields
 from wagtail.documents import get_document_model
 from wagtail.documents.models import Document
@@ -51,7 +51,13 @@ class CollectionPage(Page):
 
     description = fields.StreamField(block_types=standard_cumorah_blocks(), use_json_field=True, null=True)
 
+    documents_collection = models.ForeignKey(
+        Collection, on_delete=models.SET_NULL, blank=True, null=True,
+        help_text="Fully list documents in this documents collection on the page."
+    )
+
     content_panels = Page.content_panels + [
+        FieldPanel('documents_collection'),
         FieldPanel('description'),
     ]
 
@@ -60,6 +66,9 @@ class CollectionPage(Page):
         context['child_collections'] = self.get_children().live().filter(content_type=self.content_type)
         doc_content_type = ContentType.objects.get_for_model(DocumentPage)
         context['child_documents'] = self.get_children().live().filter(content_type=doc_content_type)
+        if self.documents_collection:
+            docs = CumorahDocument.objects.filter(collection=self.documents_collection)
+            context['selected_collection_list'] = docs
         return context
 
 

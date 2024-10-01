@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "devbuild": "webpack --mode development --output-path ./cumorah/static/bundle/",
-    "build": "webpack --mode production --output-path ./cumorah/static/bundle/",
-    "watch": "webpack --mode development --output-path ./cumorah/static/bundle/ --watch",
+    "build": "webpack --mode production --output-path ./cumorah/static/bundle/ && cp node_modules/htmx.org/dist/htmx*.js ./cumorah/static/bundle/",
+    "watch": "cp node_modules/htmx.org/dist/htmx*.js ./cumorah/static/bundle/ && webpack --mode development --output-path ./cumorah/static/bundle/ --watch",
     "build:digitalocean": "npm install --production=false && npm run build"
   },
   "author": "Shaun Kruger",
