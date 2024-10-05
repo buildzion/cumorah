@@ -47,13 +47,11 @@ class CumorahDocument(AbstractDocument):
 
 
 class CollectionPage(Page):
-    parent_page_types = ['CollectionPage', 'home.HomePage']
-
     description = fields.StreamField(block_types=standard_cumorah_blocks(), use_json_field=True, null=True)
 
     documents_collection = models.ForeignKey(
         Collection, on_delete=models.SET_NULL, blank=True, null=True,
-        help_text="Fully list documents in this documents collection on the page."
+        help_text="Fully list documents in this documents collection on the page. (optional)"
     )
 
     content_panels = Page.content_panels + [

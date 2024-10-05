@@ -10,6 +10,9 @@ from cumorah.blocks import standard_cumorah_blocks
 
 
 class HomePage(Page):
+    subpage_types = ['repository.CollectionPage', 'HomePage']
+    # parent_page_types = ['home.HomePage']
+
     body = fields.StreamField(block_types=standard_cumorah_blocks(), use_json_field=True, null=True)
 
     content_panels = Page.content_panels + [
