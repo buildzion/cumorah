@@ -26,6 +26,7 @@ if settings.DEBUG:
     urlpatterns += staticfiles_urlpatterns()
 
 if settings.DEBUG or settings.MEDIA_URL == "/media/":
+    from django.conf.urls.static import static
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns = urlpatterns + [
