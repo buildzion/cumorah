@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Contributor: {{ object.display_name }}</h1>
+
+    <div class="row">
+        <div class="col-sm-8">
+            <table class="table">
+                <tr>
+                    <th>Active</th>
+                    <td>{{ object.active|yesno:"Yes,No" }}</td>
+                </tr>
+                <tr>
+                    <th>Bio</th>
+                    <td>{{ object.bio|linebreaksbr }}</td>
+                </tr>
+                <tr>
+                    <th>Member Level</th>
+                    <td>
+                        {{ object.level|capfirst }}
+                        {% if not object.active and object.activation_request_notes %}
+                            - Activation Pending
+                        {% endif %}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-sm-4">
+            <div class="btn-group btn-group-sm btn-group-vertical">
+                <a class="btn btn-warning" href="{% url 'contributor:update' object.slug %}">Update</a>
+                {% if not object.active %}
+                    <a class="btn btn-primary" href="{% url 'contributor:request_activation' object.slug %}">
+                        Request Activation{% if object.activation_request_notes %} (pending){% endif %}
+                    </a>
+                {% endif %}
+                {% if self.request.user.is_admin %}
+                    <a class="btn btn-warning" href="{% url 'contributor:admin_update' object.slug %}">Admin Update</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

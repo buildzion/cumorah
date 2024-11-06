@@ -24,6 +24,7 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 # Application definition
 
 INSTALLED_APPS = [
+    "cumorah.contributor",
     "cumorah.home",
     "cumorah.search",
     "cumorah.repository",
@@ -63,6 +64,7 @@ MIDDLEWARE = [
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "allauth.account.middleware.AccountMiddleware",
+    "cumorah.mixins.PassportMiddleware",
 ]
 
 ROOT_URLCONF = "cumorah.urls"

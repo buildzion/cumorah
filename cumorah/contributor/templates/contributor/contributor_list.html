@@ -1,0 +1,50 @@
+{% extends 'wagtailadmin/base.html' %}
+
+{% block content %}
+
+<div class="nice-padding">
+    <h1>Contributors</h1>
+    {% if link_to_activation_requests %}
+        <a class="btn btn-primary" href="{% url 'contributor_admin:activation_requests' %}">Show Activation Requests</a>
+    {% endif %}
+    <table class="listing">
+        <tr>
+            <th>Display Name</th>
+            <th>User</th>
+            <th>Status</th>
+        </tr>
+        {% for object in object_list %}
+            <tr>
+                <td class="title">
+                    <span class="title-wrapper">
+                        <a href="{% url 'contributor_admin:update' object.slug %}">
+                            {{ object.display_name|default:"&lt;Name missing&gt;" }}
+                        </a>
+                    </span>
+                    {% if not object.active and object.activation_request_notes %}
+                        * Pending Review
+                    {% endif %}
+                </td>
+                <td>
+                    {{ object.user.username }}
+                </td>
+                <td>
+                    {% if object.active %}
+                        <span class="w-status w-status--primary">
+                            Active
+                        </span>
+                    {% else %}
+                        <span class="w-status w-status--danger">
+                            Inactive
+                        </span>
+                    {% endif %}
+                </td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="3" style="text-align: center">None</td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
