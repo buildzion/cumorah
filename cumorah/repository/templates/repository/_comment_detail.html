@@ -1,0 +1,27 @@
+<div class="card notecommentcard">
+    <div class="card-header">
+        <h3>
+            {{ object.contributor.display_name }}
+            {% if request.passport.contributor == object.contributor or request.passport.is_admin %}
+                <form style="display: inline;">
+                    {% csrf_token %}
+                    <button class="btn btn-sm btn-primary"
+                            hx-get="{% url 'repository:comment:update' object.slug %}"
+                            hx-target="#card-{{ object.slug }}"
+                            hx-swap="innerHTML"
+                    >Edit</button>
+
+                    <button class="btn btn-sm btn-danger"
+                            hx-post="{% url 'repository:comment:delete' object.slug %}"
+                            hx-target="#note_comment_container"
+                            hx-swap="innerHTML"
+                            hx-confirm="Delete this comment?"
+                    >Delete</button>
+                </form>
+            {% endif %}
+        </h3>
+    </div>
+    <div class="card-body">
+        <div>{{ object.comment|linebreaksbr }}</div>
+    </div>
+</div>

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Request activation</h1>
+    <form class="simpleform" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="text-end">
+            <input class="btn btn-primary" type="submit" value="Request"
+        </div>
+    </form>
+{% endblock %}

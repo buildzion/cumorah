@@ -1,0 +1,21 @@
+{% extends 'wagtailadmin/base.html' %}
+
+{% block content %}
+<div class="nice-padding">
+    <h1>Contributor: {{ object.display_name }} ({{ object.user.username }})</h1>
+    <p>
+        <label for="request_notes">User Activation Request Notes:</label>
+        <textarea id="request_notes" readonly>{{ object.activation_request_notes }}
+        </textarea>
+    </p>
+    <form class="simpleform" method="post">
+        {% csrf_token %}
+        <ul class="fields">
+            {{ form.as_ul }}
+        </ul>
+        <div class="text-right">
+            <input class="button" type="submit" value="Save"/>
+        </div>
+    </form>
+</div>
+{% endblock %}

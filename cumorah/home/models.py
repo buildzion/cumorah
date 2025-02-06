@@ -22,11 +22,13 @@ class HomePage(Page):
 
 class MenuLink(models.Model):
     page = models.ForeignKey(Page, on_delete=models.CASCADE, related_name='+')
+    display_title = models.CharField(max_length=50, null=True, blank=True)
     order = models.PositiveIntegerField(default=0)
     active = models.BooleanField(default=True)
 
     panels = [
         FieldPanel('page'),
+        FieldPanel('display_title'),
         FieldPanel('order'),
         FieldPanel('active'),
     ]
@@ -35,7 +37,7 @@ class MenuLink(models.Model):
         ordering = ('order',)
 
     def __str__(self):
-        return self.page.__str__()
+        return self.display_title or self.page.__str__()
 
 
 class MenuLinkViewSet(SnippetViewSet):

@@ -32,9 +32,10 @@
                         {% if not request.user.is_authenticated %}
                             <li><a class="dropdown-item" href="{% url "account_login" %}">Login</a></li>
                         {% else %}
-                            {% if request.user.is_superuser %}
+                            {% if request.user.is_superuser or request.user.groups.exists %}
                                 <li><a class="dropdown-item" href="{% url "wagtailadmin_home" %}">CMS</a></li>
                             {% endif %}
+                            <li><a class="dropdown-item" href="{% url 'contributor:redirect' %}">Contributor Profile</a></li>
                             <li><a class="dropdown-item" href="{% url "account_email" %}">Account Settings</a></li>
                             <li><a class="dropdown-item" href="{% url "account_logout" %}">Logout</a></li>
                         {% endif %}

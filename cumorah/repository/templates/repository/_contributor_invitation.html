@@ -1,0 +1,7 @@
+{% if not request.passport.contributor.active %}
+    {% if not request.passport.contributor %}
+        <p>
+            To become a contributor <a href="{% url 'account_signup' %}">create an account</a>.
+        </p>
+    {% endif %}
+{% endif %}

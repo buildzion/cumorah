@@ -1,5 +1,6 @@
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
+from django.conf import settings
 from wagtail.admin.panels import FieldPanel
 from wagtail.documents.models import AbstractDocument
 from wagtail.models import Page, Collection
@@ -7,8 +8,8 @@ from wagtail import fields
 from wagtail.documents import get_document_model
 from wagtail.documents.models import Document
 
+from cumorah.slugger import random_slug
 from cumorah.blocks import standard_cumorah_blocks
-
 
 DOC_PDF = 'application/pdf'
 DOC_EPUB = 'application/epub+zip'
@@ -47,7 +48,7 @@ class CumorahDocument(AbstractDocument):
 
 
 class CollectionPage(Page):
-    description = fields.StreamField(block_types=standard_cumorah_blocks(), use_json_field=True, null=True)
+    description = fields.StreamField(block_types=standard_cumorah_blocks(), use_json_field=True, null=True, blank=True)
 
     documents_collection = models.ForeignKey(
         Collection, on_delete=models.SET_NULL, blank=True, null=True,
@@ -73,7 +74,7 @@ class CollectionPage(Page):
 class DocumentPage(Page):
     parent_page_types = ['CollectionPage']
 
-    description = fields.StreamField(block_types=standard_cumorah_blocks(), use_json_field=True, null=True)
+    description = fields.StreamField(block_types=standard_cumorah_blocks(), use_json_field=True, null=True, blank=True)
     document = models.ForeignKey(
         get_document_model(),
         on_delete=models.DO_NOTHING,
@@ -91,3 +92,33 @@ class DocumentPage(Page):
         FieldPanel('document'),
         FieldPanel('alternate_formats'),
     ]
+
+
+class DocumentNote(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    slug = models.SlugField()
+    document = models.ForeignKey('DocumentPage', on_delete=models.CASCADE)
+    contributor = models.ForeignKey('contributor.Contributor', on_delete=models.DO_NOTHING)
+    title = models.CharField(max_length=255)
+    reference = models.CharField(max_length=255, blank=True, default='')
+    note = models.TextField(blank=True)
+    visible = models.BooleanField(default=True)
+
+    @staticmethod
+    def get_random_slug():
+        return random_slug('n', 12)
+
+
+class NoteComment(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    slug = models.SlugField()
+    note = models.ForeignKey('DocumentNote', on_delete=models.CASCADE)
+    contributor = models.ForeignKey('contributor.Contributor', on_delete=models.DO_NOTHING)
+    comment = models.TextField()
+    visible = models.BooleanField(default=True)
+
+    @staticmethod
+    def get_random_slug():
+        return random_slug('nc', 18)

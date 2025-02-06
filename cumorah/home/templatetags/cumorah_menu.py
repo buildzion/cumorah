@@ -7,4 +7,5 @@ register = template.Library()
 
 @register.simple_tag(takes_context=False)
 def cumorah_menu():
-    return list(MenuLink.objects.filter(active=True))
+    qs = MenuLink.objects.filter(active=True)
+    return list(qs)

@@ -1,0 +1,13 @@
+<h2>Comments</h2>
+{% for com in object_list %}
+    <div id="card-{{ com.slug }}">
+        {% include 'repository/_comment_detail.html' with object=com %}
+    </div>
+{% empty %}
+    <div class="text-center">
+        <span style="font-weight: bold;">None</span>
+    </div>
+
+{% endfor %}
+
+{% include 'repository/_contributor_invitation.html' %}

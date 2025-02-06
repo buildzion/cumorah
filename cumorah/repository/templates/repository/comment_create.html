@@ -1,0 +1,13 @@
+{% include 'repository/comment_list.html' %}
+
+<form class="simpleform" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input class="btn btn-sm btn-primary" type="submit" value="Add Comment"
+           hx-post="{{ request.path }}"
+           hx-trigger="click"
+           hx-target="#note_comment_container"
+           hx-swap="innerHTML"
+    />
+
+</form>

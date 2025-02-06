@@ -1,1 +1,73 @@
+$font-size-base:              1rem !default; // Assumes the browser default, typically `16px`
+$h1-font-size:                $font-size-base * 1.75 !default;
+$h2-font-size:                $font-size-base * 1.5 !default;
+$h3-font-size:                $font-size-base * 1.35 !default;
+$h4-font-size:                $font-size-base * 1.25 !default;
+$h5-font-size:                $font-size-base * 1.15 !default;
+$h6-font-size:                $font-size-base !default;
+
 @import "bootstrap/scss/bootstrap";
+
+form.simpleform input[type=text], form.simpleform textarea {
+  width: 100%;
+}
+
+form.simpleform label {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.description-text {
+  min-height: 350px;
+  border: #aaaaaa 1px solid;
+  border-radius: 10px;
+  padding: 8px;
+}
+
+//.file-download h2 {
+//  font-size: 1.4em;
+//}
+
+.cumorahfooter {
+  min-height: 150px;
+}
+
+#note_container {
+  padding-top: 8px;
+}
+
+#note_container .card .card-header h3 {
+  font-size: 1.4em;
+  margin-bottom: 0;
+}
+
+//#note_container h2 {
+//  font-size: 1.6em;
+//}
+
+#note_container .author-info {
+  font-size: .7em;
+}
+
+.container hr {
+  margin-top: .25em;
+  margin-bottom: .25em;
+}
+
+#note_container .card-body, #note_comment_container .card-body {
+  padding-top: .5em;
+  padding-bottom: .7em;
+}
+
+#note_container .card, #note_comment_container .card {
+  margin-bottom: .5em;
+  font-size: .85em
+}
+
+div.tox-tinymce div.tox-promotion {
+    display: none;
+}
+
+span.tox-statusbar__branding {
+    display: none;
+}
