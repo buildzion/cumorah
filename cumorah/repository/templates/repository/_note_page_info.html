@@ -1,0 +1,9 @@
+{% load wagtailcore_tags %}
+<h2>{{ page.get_parent.title }} / {{ page.title }}</h2>
+{% include_block page.description %}
+{% if page.document %}
+    <p>
+        <a href="{{ page.document.url }}">{{ page.document.title }} ({{ page.document.text_doc_type }})</a>
+    </p>
+{% endif %}
+

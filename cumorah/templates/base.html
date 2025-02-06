@@ -25,7 +25,8 @@
 
         {# Global stylesheets #}
         <link rel="stylesheet" href="{% static 'bundle/main.css' %}" crossorigin="anonymous"/>
-        
+        <script src="{% static 'bundle/tinymce/tinymce.min.js' %}" referrerpolicy="origin"></script>
+
         {% block extra_css %}
         {# Override this in templates to add extra stylesheets #}
         {% endblock %}
@@ -57,6 +58,7 @@
 
         {# Global javascript #}
         <script src="{% static 'bundle/main.js' %}" crossorigin="anonymous"></script>
+        <script src="{% static 'tinymcehelper.js' %}" crossorigin="anonymous"></script>
 
         {% block extra_js %}
         {# Override this in templates to add extra javascript #}

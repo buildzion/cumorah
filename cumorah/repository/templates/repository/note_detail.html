@@ -2,7 +2,8 @@
 {% load wagtailcore_tags %}
 
 {% block content %}
-<h1>{{ object.title }}</h1>
+<h1>Note: {{ object.title }}</h1>
+<h2>{{ object.document.get_parent.title }} / {{ object.document.title }}</h2>
 
 <div class="row">
     <div class="col-md-7">
@@ -11,9 +12,17 @@
             {{ object.reference }}
             <hr/>
             {% endif %}
-            {{ object.description|linebreaksbr }}
+            {{ object.note|safe }}
         </div>
-        <div id="observation_comment_container">
+        <div id="note_comment_container"
+             {% if request.passport.contributor.active %}
+             hx-get="{% url 'repository:note:comment' object.slug %}"
+             {% else %}
+             hx-get="{% url 'repository:note:comments' object.slug %}"
+             {% endif %}
+             hx-trigger="load"
+             hx-target="#note_comment_container"
+             hx-swap="innerHTML">
             <div class="text-center">
                 <h2>Loading Comments...</h2>
             </div>
@@ -27,7 +36,7 @@
             <div class="card-body">
                 {% include_block object.document.description %}
                 <div class="right">
-                    <a class="btn btn-sm btn-primary" href="{{ object.document.url }}">View</a>
+                    <a class="btn btn-sm btn-primary" href="{{ object.document.url }}">View this document</a>
                 </div>
             </div>
         </div>

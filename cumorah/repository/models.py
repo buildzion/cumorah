@@ -94,7 +94,7 @@ class DocumentPage(Page):
     ]
 
 
-class Observation(models.Model):
+class DocumentNote(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     slug = models.SlugField()
@@ -102,23 +102,23 @@ class Observation(models.Model):
     contributor = models.ForeignKey('contributor.Contributor', on_delete=models.DO_NOTHING)
     title = models.CharField(max_length=255)
     reference = models.CharField(max_length=255, blank=True, default='')
-    description = models.TextField(blank=True)
+    note = models.TextField(blank=True)
     visible = models.BooleanField(default=True)
 
     @staticmethod
     def get_random_slug():
-        return random_slug('ob', 12)
+        return random_slug('n', 12)
 
 
-class ObservationComment(models.Model):
+class NoteComment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     slug = models.SlugField()
-    observation = models.ForeignKey('Observation', on_delete=models.CASCADE)
+    note = models.ForeignKey('DocumentNote', on_delete=models.CASCADE)
     contributor = models.ForeignKey('contributor.Contributor', on_delete=models.DO_NOTHING)
-    comment = models.TextField(blank=True)
+    comment = models.TextField()
     visible = models.BooleanField(default=True)
 
     @staticmethod
     def get_random_slug():
-        return random_slug('oc', 18)
+        return random_slug('nc', 18)

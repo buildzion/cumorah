@@ -5,11 +5,12 @@ from cumorah.contributor.models import Contributor
 
 class CumorahMixin:
     admin_required = False
+    login_required = True
     admin_get_permitted_groups = None
     admin_post_permitted_groups = None
 
     def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
+        if self.login_required and not request.user.is_authenticated:
             raise Http404()
 
         self.passport = request.passport
@@ -47,7 +48,10 @@ class PassportMiddleware:
 class Passport:
     def __init__(self, user=None):
         self.user = user
-        self.contributor = Contributor.objects.filter(user=user).first()
+        if user.is_authenticated:
+            self.contributor = Contributor.objects.filter(user=user).first()
+        else:
+            self.contributor = None
         self.is_admin = False
         if user.is_superuser:
             self.is_admin = True

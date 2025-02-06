@@ -1,0 +1,11 @@
+<form id="comment{{ object.pk }}" class="simpleform" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input class="btn btn-sm btn-primary" type="submit" value="Update"
+           hx-post="{{ request.path }}"
+           hx-trigger="click"
+           hx-target="div#card-{{ object.slug }}"
+           hx-swap="innerHTML"
+
+    />
+</form>

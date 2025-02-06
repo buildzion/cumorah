@@ -32,20 +32,20 @@ form.simpleform label {
   min-height: 150px;
 }
 
-#observation_container {
+#note_container {
   padding-top: 8px;
 }
 
-#observation_container .card .card-header h3 {
+#note_container .card .card-header h3 {
   font-size: 1.4em;
   margin-bottom: 0;
 }
 
-//#observation_container h2 {
+//#note_container h2 {
 //  font-size: 1.6em;
 //}
 
-#observation_container .author-info {
+#note_container .author-info {
   font-size: .7em;
 }
 
@@ -54,12 +54,20 @@ form.simpleform label {
   margin-bottom: .25em;
 }
 
-#observation_container .card-body {
+#note_container .card-body, #note_comment_container .card-body {
   padding-top: .5em;
   padding-bottom: .7em;
 }
 
-#observation_container .card {
+#note_container .card, #note_comment_container .card {
   margin-bottom: .5em;
   font-size: .85em
+}
+
+div.tox-tinymce div.tox-promotion {
+    display: none;
+}
+
+span.tox-statusbar__branding {
+    display: none;
 }

@@ -1,0 +1,32 @@
+<h2>Notes
+    {% if request.passport.contributor.active %}
+        <a class="btn btn-sm btn-primary" href="{% url 'repository:document:note_create' document_pk %}">Add</a>
+    {% endif %}
+</h2>
+{% for ob in object_list %}
+    <div class="card notecard">
+        <div class="card-header">
+            <h3>
+                {{ ob.title }}
+                <a class="btn btn-sm btn-primary" href="{% url 'repository:document:note_update' document_pk ob.slug %}">Edit</a>
+            </h3>
+        </div>
+        <div class="card-body">
+            {% if ob.reference %}
+            <div>{{ ob.reference }}</div>
+            <hr/>
+            {% endif %}
+            <div>{{ ob.note|safe }}</div>
+            <hr/>
+            <div>
+                <a class="btn btn-sm btn-primary" href="{% url 'repository:note:detail' ob.slug %}">{{ ob.notecomment_set.count }} comments</a>
+                <span class="author-info">Author: {{ ob.contributor.display_name }}</span>
+            </div>
+        </div>
+    </div>
+{% empty %}
+    <div class="text-center">
+        <span style="font-weight:bold;">None</span>
+    </div>
+{% endfor %}
+{% include 'repository/_contributor_invitation.html' %}

@@ -9,7 +9,7 @@
         <div class="description-text">
             {% include_block page.description %}
         </div>
-        <div id="observation_container" hx-get="{% url 'repository:document:observation_list' page.pk %}" hx-trigger="load"></div>
+        <div id="note_container" hx-get="{% url 'repository:document:note_list' page.pk %}" hx-trigger="load"></div>
     </div>
     <div class="col-md-5">
         <div class="file-download">
