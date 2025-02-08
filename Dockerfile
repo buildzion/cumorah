@@ -4,7 +4,9 @@ WORKDIR /build
 
 COPY . .
 
-RUN npm install && npm run build
+RUN mkdir -p cumorah/static/bundle/ \
+    && npm install && npm run build  \
+    && cd cumorah/static && tar cf ../static-bundle.tar bundle
 
 # Use an official Python runtime based on Debian 10 "buster" as a parent image.
 FROM python:3.8.1-slim-buster
@@ -50,13 +52,14 @@ RUN chown wagtail:wagtail /app
 # Copy the source code of the project into the container.
 COPY --chown=wagtail:wagtail . .
 
-COPY --from=nodebuild --chown=wagtail:wagtail /build/cumorah/static/bundle/* cumorah/static/bundle/
+COPY --from=nodebuild --chown=wagtail:wagtail /build/cumorah/static-bundle.tar /tmp/static-bundle.tar
 
 # Use user "wagtail" to run the build commands below and the server itself.
 USER wagtail
 
 # Collect static files.
-RUN python manage.py collectstatic --noinput --clear
+RUN tar xvf /tmp/static-bundle.tar -C cumorah/static/  \
+    && python manage.py collectstatic --noinput --clear
 
 # Runtime command that executes when "docker run" is called, it does the
 # following:
