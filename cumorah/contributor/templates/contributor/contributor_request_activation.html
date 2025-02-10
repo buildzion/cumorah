@@ -6,7 +6,8 @@
         {% csrf_token %}
         {{ form.as_p }}
         <div class="text-end">
-            <input class="btn btn-primary" type="submit" value="Request"
+            <input class="btn btn-primary" type="submit" value="Request"/>
         </div>
     </form>
+    {% include 'includes/_tinymce.html' with selector="textarea#id_bio" %}
 {% endblock %}

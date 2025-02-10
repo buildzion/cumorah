@@ -11,6 +11,7 @@
         <tr>
             <th>Display Name</th>
             <th>User</th>
+            <th>Level</th>
             <th>Status</th>
         </tr>
         {% for object in object_list %}
@@ -28,6 +29,7 @@
                 <td>
                     {{ object.user.username }}
                 </td>
+                <td>{{ object.level|capfirst }}</td>
                 <td>
                     {% if object.active %}
                         <span class="w-status w-status--primary">
