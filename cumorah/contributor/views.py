@@ -30,7 +30,7 @@ class ContributorDetailView(CumorahMixin, DetailView):
         if self.is_admin:
             return qs
 
-        return qs.filter(user=self.request.user)
+        return qs.filter(active=True)
 
 
 class ContributorUpdateView(CumorahMixin, UpdateView):

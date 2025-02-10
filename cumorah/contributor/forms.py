@@ -2,11 +2,13 @@
 from django import forms
 
 from cumorah.contributor import models
+from cumorah.fields import HtmlTextField
 
 
 class RequestActivationForm(forms.ModelForm):
     display_name = forms.CharField(required=True)
-    bio = forms.CharField(required=True, help_text="Provide some basic information about yourself to share publicly")
+    bio = HtmlTextField(required=True,
+                        help_text="Provide some basic information about yourself to share publicly")
     activation_request_notes = forms.CharField(required=True, widget=forms.Textarea)
 
     class Meta:
@@ -20,6 +22,8 @@ class RequestActivationForm(forms.ModelForm):
 
 class ContributorUpdateForm(forms.ModelForm):
     active = forms.BooleanField(required=False, help_text="Check this box to approve this contributor")
+    bio = HtmlTextField(required=True,
+                        help_text="Provide some basic information about yourself to share publicly")
 
     class Meta:
         model = models.Contributor

@@ -20,7 +20,7 @@
             <hr/>
             <div>
                 <a class="btn btn-sm btn-primary" href="{% url 'repository:note:detail' ob.slug %}">{{ ob.notecomment_set.count }} comments</a>
-                <span class="author-info">Author: {{ ob.contributor.display_name }}</span>
+                <span class="author-info">Author: <a href="{% url 'contributor:detail' ob.contributor.slug %}">{{ ob.contributor.display_name }}</a></span>
             </div>
         </div>
     </div>

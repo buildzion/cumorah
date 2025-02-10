@@ -12,7 +12,7 @@
                 </tr>
                 <tr>
                     <th>Bio</th>
-                    <td>{{ object.bio|linebreaksbr }}</td>
+                    <td>{{ object.bio|safe }}</td>
                 </tr>
                 <tr>
                     <th>Member Level</th>
@@ -25,6 +25,7 @@
                 </tr>
             </table>
         </div>
+        {% if view.passport.is_admin or request.user == object.user %}
         <div class="col-sm-4">
             <div class="btn-group btn-group-sm btn-group-vertical">
                 <a class="btn btn-warning" href="{% url 'contributor:update' object.slug %}">Update</a>
@@ -33,11 +34,12 @@
                         Request Activation{% if object.activation_request_notes %} (pending){% endif %}
                     </a>
                 {% endif %}
-                {% if self.request.user.is_admin %}
-                    <a class="btn btn-warning" href="{% url 'contributor:admin_update' object.slug %}">Admin Update</a>
+                {% if view.passport.is_admin %}
+{#                    <a class="btn btn-warning" href="{% url 'contributor:admin_update' object.slug %}">Admin Update</a>#}
                 {% endif %}
             </div>
         </div>
+        {% endif %}
     </div>
 
 {% endblock %}

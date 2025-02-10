@@ -6,6 +6,11 @@
         toolbar: 'undo redo | bold italic | bullist numlist | link emoticons',
         plugins: [
             'link', 'emoticons', 'lists'
-        ]
+        ],
+        setup: function (editor) {
+            editor.on('change', function () {
+                tinymce.triggerSave();
+            })
+        }
     })
 </script>
