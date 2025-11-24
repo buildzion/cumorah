@@ -1,8 +1,8 @@
-Django>=4.2,<5.1
-wagtail>=5.2,<5.3
+Django~=5.2.8
+wagtail~=7.0.3
 dj-database-url~=1.2.0
 django-allauth[socialaccount]~=65.0.2
-psycopg2-binary==2.9.5
+psycopg2-binary~=2.9.11
 nh3==0.2.20
-pytz==2022.7.1
-whitenoise~=6.7.0
+pytz==2025.2
+whitenoise~=6.11.0

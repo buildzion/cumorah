@@ -169,6 +169,16 @@ STATIC_URL = "/static/"
 MEDIA_ROOT = os.environ.get("DOCKER_MEDIA_ROOT", os.path.join(BASE_DIR, "media"))
 MEDIA_URL = "/media/"
 
+STORAGES = {
+    'default': {
+        "BACKEND": 'django.core.files.storage.FileSystemStorage',
+        "OPTIONS": {},
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.ManifestStaticFilesStorage",
+    },
+}
+
 WAGTAILDOCS_DOCUMENT_MODEL = 'repository.CumorahDocument'
 
 # Wagtail settings
