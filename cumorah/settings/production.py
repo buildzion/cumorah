@@ -55,6 +55,7 @@ if os.environ.get("CUMORAH_ERROR_HANDLING") == "DEBUG":
 
 CSRF_TRUSTED_ORIGINS = [f"https://{h}/" for h in ALLOWED_HOSTS if h != "*"]
 
+CUMORAH_NAVBAR_TITLE = os.environ.get("CUMORAH_NAVBAR_TITLE", "Cumorah")
 
 try:
     from local_settings import *
