@@ -46,6 +46,9 @@ LOGGING = {
 if os.environ.get("DOCKER_TEMPLATE_DIR"):
     TEMPLATES[0]['DIRS'].insert(0, os.environ.get("DOCKER_TEMPLATE_DIR"))
 
+if os.environ.get("DOCKER_STATICFILES_DIR"):
+    STATICFILES_DIRS.append(os.environ.get("DOCKER_STATICFILES_DIR"))
+
 if os.environ.get("CUMORAH_ERROR_HANDLING") == "DEBUG":
     EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
     EMAIL_FILE_PATH = "/host/email_backend"
