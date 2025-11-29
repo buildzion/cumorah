@@ -83,6 +83,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "django.template.context_processors.request",
+                "cumorah.context_processors.site_settings",
             ],
         },
     },
@@ -169,6 +170,16 @@ STATIC_URL = "/static/"
 MEDIA_ROOT = os.environ.get("DOCKER_MEDIA_ROOT", os.path.join(BASE_DIR, "media"))
 MEDIA_URL = "/media/"
 
+STORAGES = {
+    'default': {
+        "BACKEND": 'django.core.files.storage.FileSystemStorage',
+        "OPTIONS": {},
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.ManifestStaticFilesStorage",
+    },
+}
+
 WAGTAILDOCS_DOCUMENT_MODEL = 'repository.CumorahDocument'
 
 # Wagtail settings
@@ -186,3 +197,13 @@ WAGTAILSEARCH_BACKENDS = {
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 WAGTAILADMIN_BASE_URL = os.environ.get("CUMORAH_BASE_URL", "http://example.com")
+
+CUMORAH_STYLESHEETS = [
+    "bundle/main.css",
+]
+
+CUMORAH_JAVASCRIPT = [
+    "bundle/tinymce/tinymce.min.js",
+]
+
+CUMORAH_NAVBAR_TITLE = "Cumorah"
