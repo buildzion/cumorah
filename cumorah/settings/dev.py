@@ -11,6 +11,7 @@ ALLOWED_HOSTS = ["*"]
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
+CUMORAH_NAVBAR_TITLE = "Dev Cumorah"
 
 try:
     from .local import *

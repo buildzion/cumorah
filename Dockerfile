@@ -1,4 +1,4 @@
-FROM node:20.16.0 as nodebuild
+FROM node:20.16.0 AS nodebuild
 
 WORKDIR /build
 
@@ -8,8 +8,7 @@ RUN mkdir -p cumorah/static/bundle/ \
     && npm install && npm run build  \
     && cd cumorah/static && tar cf ../static-bundle.tar bundle
 
-# Use an official Python runtime based on Debian 10 "buster" as a parent image.
-FROM python:3.8.1-slim-buster
+FROM python:3.13-slim-bullseye
 
 # Add user that will be used in the container.
 RUN useradd wagtail
@@ -28,7 +27,6 @@ ENV PYTHONUNBUFFERED=1 \
 RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-recommends \
     build-essential \
     libpq-dev \
-    libmariadbclient-dev \
     libjpeg62-turbo-dev \
     zlib1g-dev \
     libwebp-dev \
@@ -70,4 +68,4 @@ RUN tar xvf /tmp/static-bundle.tar -C cumorah/static/  \
 #   PRACTICE. The database should be migrated manually or using the release
 #   phase facilities of your hosting platform. This is used only so the
 #   Wagtail instance can be started with a simple "docker run" command.
-CMD set -xe; python manage.py migrate --noinput; gunicorn cumorah.wsgi:application --access-logfile - --log-file -
+CMD set -xe; python manage.py collectstatic --noinput; python manage.py migrate --noinput; gunicorn cumorah.wsgi:application --access-logfile - --log-file -
